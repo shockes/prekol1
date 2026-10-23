@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${formTitle}">Сотрудник</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="container form-container">
+    <h1 th:text="${formTitle}">Сотрудник</h1>
+    <form class="employee-form" method="post" th:action="${formAction}" th:object="${employee}">
+        <label>
+            ФИО
+            <input type="text" th:field="*{fullName}" maxlength="100" required>
+            <span class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+        </label>
+
+        <label>
+            Email
+            <input type="email" th:field="*{email}" maxlength="120" required>
+            <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </label>
+
+        <label>
+            Телефон
+            <input type="tel" th:field="*{phone}" placeholder="+7 (999) 123-45-67" maxlength="20" required>
+            <span class="field-error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        </label>
+
+        <label>
+            Должность
+            <input type="text" th:field="*{position}" maxlength="80" required>
+            <span class="field-error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
+        </label>
+
+        <label>
+            Зарплата, ₽
+            <input type="number" th:field="*{salary}" min="0.01" step="0.01" required>
+            <span class="field-error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+        </label>
+
+        <label class="checkbox-label">
+            <input type="checkbox" th:field="*{active}">
+            Активный сотрудник
+        </label>
+        <span class="field-error" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>
+
+        <div class="form-buttons">
+            <button class="button" type="submit">Сохранить</button>
+            <a class="button button-secondary" th:href="@{/employees}">Отмена</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>
